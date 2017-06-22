@@ -1,30 +1,41 @@
 package com.example.guzik.jacksday.model;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by guzik on 5/21/17.
- */
-
 public class Data {
 
-    static final Activity[] sampleActivities = {
-            new Activity("02:33", "jedzenie", "50ml mlenia"),
-            new Activity("3:33", "spanie", "30min"),
-            new Activity("4:34", "spanie", "50min"),
-            new Activity("8:33", "jedzenie", "150ml mlenia"),
-            new Activity("12:03", "spanie", "30min"),
-            new Activity("15:33", "spanko", "1,5h"),
-            new Activity("20:33", "jedzenie", "10ml mlenia"),
-            new Activity("22:33", "jedzenie", "80ml mlenia")
-    };
+    private JdbcTemplate jdbcTemplate;
 
-    public static List<Activity>getData(){
-        ArrayList<Activity> activities = new ArrayList<>();
-        for(int i = 0; i < sampleActivities.length; i++){
-            activities.add(sampleActivities[i]);
-        }
+    public Data(){
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriver(new com.mysql.jdbc.Driver());
+        dataSource.setUrl("jdbc:mysql://mn19.webd.pl/krguznic_JacksDay");
+        dataSource.setUsername("krguznic_JacksDa");
+        dataSource.setPassword("$nufk!n");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public List<Activity> getData(){
+        List<Activity> activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
+
+            public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
+                Activity activity = new Activity();
+                activity.setTime(result.getString("action_time"));
+                activity.setActivity(result.getString("action_title"));
+                activity.setActivityDetail(result.getString("action_detail"));
+
+                return activity;
+            }
+
+        });
+
         return activities;
     }
 }

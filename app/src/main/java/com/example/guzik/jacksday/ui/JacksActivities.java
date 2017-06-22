@@ -22,7 +22,8 @@ public class JacksActivities extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jacks_activities);
 
-        List<Activity> aa = Data.getData();
+        Data data = new Data();
+        List<Activity> aa = data.getData();
         System.out.println(aa);
         adapter = new Adapter(aa, this);
         recyclerView = createRecyclerView(adapter);
