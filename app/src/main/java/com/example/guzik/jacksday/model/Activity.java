@@ -10,6 +10,7 @@ public class Activity {
     private String title;
     private String activityDetail;
     //TODO icon?
+    public Activity(){};
 
     public Activity(String time, String title, String activityDetail){
         this.time = time;
