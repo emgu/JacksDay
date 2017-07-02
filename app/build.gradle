@@ -18,6 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    packagingOptions {
+        exclude 'META-INF/spring.schemas'
+        exclude 'META-INF/spring.tooling'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/spring.handlers'
+    }
 }
 
 dependencies {
@@ -37,5 +48,6 @@ dependencies {
  //   compile("com.h2database:h2")
     testCompile("junit:junit")
     compile 'org.springframework:spring-jdbc:4.3.9.RELEASE'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.0.8'
 }
+

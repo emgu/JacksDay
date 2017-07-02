@@ -2,15 +2,16 @@
 
 buildscript {
     repositories {
-        maven {
-            url 'https://repo.spring.io/libs-milestone'
-        }
+//        maven {
+//            url 'https://repo.spring.io/libs-milestone'
+//        }
         mavenCentral()
         jcenter()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+ //       classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
       //  classpath 'io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,29 +20,31 @@ buildscript {
 
 allprojects {
     repositories {
-        maven
+   //     maven
         mavenCentral()
         jcenter()
     }
 }
 
-apply plugin: 'org.springframework.boot'
+//apply plugin: 'org.springframework.boot'
 
-dependencies {
- //   compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
- //   compile("org.springframework:spring-core")
- //   compile("org.springframework.boot:spring-boot-starter")
-//    compile("org.springframework:spring-jdbc")
- //   compile("com.h2database:h2")
-    testCompile("junit:junit")
-}
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-versions:1.0.0.RELEASE"
-        mavenBom "org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE"
-    }
-}
+
+//dependencies {
+// //   compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+// //   compile("org.springframework:spring-core")
+// //   compile("org.springframework.boot:spring-boot-starter")
+////    compile("org.springframework:spring-jdbc")
+// //   compile("com.h2database:h2")
+//    testCompile("junit:junit")
+//}
+
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.springframework.cloud:spring-cloud-versions:1.0.0.RELEASE"
+//        mavenBom "org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE"
+//    }
+//}
 
 //task clean(type: Delete) {
 //    delete rootProject.buildDir

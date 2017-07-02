@@ -3,8 +3,10 @@ package com.example.guzik.jacksday.model;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
@@ -33,15 +35,28 @@ public class Data {
 
     public List<Activity> getData(){
         String sqlSelect = "SELECT * FROM activities";
-        List<Activity> activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
+        List<Activity> activities = new ArrayList<>();
+        activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
             public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
+
                 Activity activity = new Activity();
-                activity.setTime(result.getString("action_time"));
-                activity.setActivity(result.getString("action_title"));
-                activity.setActivityDetail(result.getString("action_detail"));
+                activity.setTime("action_time");
+                activity.setActivity("action_title");
+                activity.setActivityDetail("action_detail");
                 return activity;
             }
         });
+
+//        activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
+//            public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
+//
+//                Activity activity = new Activity();
+//                activity.setTime(result.getString("action_time"));
+//                activity.setActivity(result.getString("action_title"));
+//                activity.setActivityDetail(result.getString("action_detail"));
+//                return activity;
+//            }
+//        });
 
         return activities;
     }

@@ -22,11 +22,13 @@ public class JacksActivities extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jacks_activities);
 
+        System.out.println("JacksActivities starts... ");
         Data data = new Data();
         List<Activity> aa = data.getData();
         System.out.println(aa);
         adapter = new Adapter(aa, this);
         recyclerView = createRecyclerView(adapter);
+        System.out.println("JacksActivities ends... ");
     }
 
     private RecyclerView createRecyclerView(Adapter adapter){
