@@ -4,8 +4,10 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,45 +39,32 @@ public class Data {
     }
 
     public List<Activity> getData(){
-        String sqlSelect = "SELECT * FROM activities";
-        Log.w("tagtag", "--->>> sqlSelect" + sqlSelect);
         List<Activity> activities = new ArrayList<>();
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        Log.w("tagtag", "--->>> android.os.Build.VERSION.SDK_INT" + android.os.Build.VERSION.SDK_INT);
-        if (SDK_INT > 8)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            Log.w("tagtag", "--->>> policy" + policy);
-            
-            Log.w("tagtag", "--->>> queryForList" + jdbcTemplate.queryForList(sqlSelect));
-
+        if(setThreadPolicy()) {
+            String sqlSelect = "SELECT * FROM activities";
+            Log.w("tagtag", "--->>> sqlSelect" + sqlSelect);
+            activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
+                public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
+                    Activity activity = new Activity();
+                    activity.setTime(result.getString("action_time"));
+                    activity.setActivity(result.getString("action_title"));
+                    activity.setActivityDetail(result.getString("action_detail"));
+                    return activity;
+                }
+            });
         }
-
-//        activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
-//            public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
-//                Log.w("tagtag", "--->>> jdbcTemplate.query result.getString(1)" + result.getString(1));
-//                Activity activity = new Activity();
-//                activity.setTime("action_time");
-//                activity.setActivity("action_title");
-//                activity.setActivityDetail("action_detail");
-//                return activity;
-//            }
-//        });
         Log.w("tagtag", "--->>> activities" + activities);
-
-//        activities = jdbcTemplate.query(sqlSelect, new RowMapper<Activity>() {
-//            public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
-//
-//                Activity activity = new Activity();
-//                activity.setTime(result.getString("action_time"));
-//                activity.setActivity(result.getString("action_title"));
-//                activity.setActivityDetail(result.getString("action_detail"));
-//                return activity;
-//            }
-//        });
-
         return activities;
+    }
+
+    private boolean setThreadPolicy() {
+        if (android.os.Build.VERSION.SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Log.w("tagtag", "--->>> setThreadPolicy " + true);
+            return true;
+        }
+        Log.w("tagtag", "--->>> setThreadPolicy " + false);
+        return false;
     }
 }
