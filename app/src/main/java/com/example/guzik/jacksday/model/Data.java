@@ -39,23 +39,28 @@ public class Data {
     public List<Activity> getData(){
         List<Activity> activities = new ArrayList<>();
         if(setThreadPolicy()) {
-            String sqlSelect = "SELECT * FROM activities";
+            String sqlSelect = "SELECT * FROM activity";
             Log.w("tagtag", "--->>> sqlSelect" + sqlSelect);
             activities = jdbcTemplate.query(sqlSelect, new ActivityRowMapper());
-//                    new RowMapper<Activity>() {
-//                public Activity mapRow(ResultSet result, int rowNum) throws SQLException {
-//                    Activity activity = new Activity();
-//                    activity.setTime(result.getString("action_time"));
-//                    activity.setActivity(result.getString("action_title"));
-//                    activity.setActivityDetail(result.getString("action_detail"));
-//                    return activity;
-//                }
-//            });
         }
         Log.w("tagtag", "--->>> activities" + activities);
         return activities;
     }
 
+    public void save(Activity activity){
+        if(setThreadPolicy()) {
+            String sqlInsert = "INSERT INTO activity "
+                    + "(`date`, `time`, `name`, `details`, `icon`)"
+                    + " VALUES (?, ?, ?, ?, ?)";
+
+            jdbcTemplate.update(sqlInsert,
+                    activity.getDate(),
+                    activity.getTime(),
+                    activity.getName(),
+                    activity.getDetails(),
+                    activity.getIcon());
+        }
+    }
     private boolean setThreadPolicy() {
         if (android.os.Build.VERSION.SDK_INT > 8) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());

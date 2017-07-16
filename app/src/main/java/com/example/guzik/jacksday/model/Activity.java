@@ -1,21 +1,42 @@
 package com.example.guzik.jacksday.model;
 
+import android.util.Log;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by guzik on 5/21/17.
  */
 
 public class Activity {
 
+    private String date;
     private String time;
-    private String title;
-    private String activityDetail;
+    private String name;
+    private String details;
     //TODO icon?
+
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
     public Activity(){};
 
-    public Activity(String time, String title, String activityDetail){
-        this.time = time;
-        this.title = title;
-        this.activityDetail = activityDetail;
+    public Activity(Date dateAndTime, String name, String details){
+        this.date = dateFormat.format(dateAndTime);
+        this.time = timeFormat.format(dateAndTime);
+        this.name = name;
+        this.details = details;
+        Log.w("tagtag", "--->>> Activity constructor " + this);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {
@@ -26,20 +47,23 @@ public class Activity {
         this.time = time;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setActivity(String activity) {
-        this.title = activity;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getActivityDetail() {
-        return activityDetail;
+    public String getDetails() {
+        return details;
     }
 
-    public void setActivityDetail(String activityDetail) {
-        this.activityDetail = activityDetail;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
+    public Object getIcon() {
+        return "icon";
+    }
 }

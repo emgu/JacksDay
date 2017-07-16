@@ -34,9 +34,10 @@ public class Adapter extends RecyclerView.Adapter<ActivityViewHolder> {
     @Override
     public void onBindViewHolder(ActivityViewHolder holder, int position) {
         Activity activity = activities.get(position);
-        holder.setActivityTime(activity.getTime());
-        holder.setActivityTitle(activity.getTitle());
-        //holder.setActivityDetail TODO
+        holder.setTime(activity.getTime());
+        holder.setDate(activity.getDate());
+        holder.setName(activity.getName());
+        holder.setDetails(activity.getDetails());
     }
 
     @Override

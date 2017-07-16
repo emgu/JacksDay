@@ -12,40 +12,51 @@ import com.example.guzik.jacksday.R;
 
 public class ActivityViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView activityTime;
-    private TextView activityTitle;
-    private TextView activityDetails; //TODO
+    private TextView date;
+    private TextView time;
+    private TextView name;
+    private TextView details;
     private View container;
 
     public ActivityViewHolder(View itemView) {
         super(itemView);
-        activityTime = (TextView)itemView.findViewById(R.id.action_time);
-        activityTitle = (TextView)itemView.findViewById(R.id.action_title);
-        container = itemView.findViewById(R.id.action_item);
+        date = (TextView)itemView.findViewById(R.id.date);
+        time = (TextView)itemView.findViewById(R.id.time);
+        name = (TextView)itemView.findViewById(R.id.name);
+        details = (TextView)itemView.findViewById(R.id.details);
+        container = itemView.findViewById(R.id.activity);
     }
 
-    public TextView getActivityTime() {
-        return activityTime;
+    public TextView getDate() {
+        return date;
     }
 
-    public void setActivityTime(String activityTime) {
-        this.activityTime.setText(activityTime);
+    public void setDate(String date) {
+        this.date.setText(date);
     }
 
-    public TextView getActivityTitle() {
-        return activityTitle;
+    public TextView getTime() {
+        return time;
     }
 
-    public void setActivityTitle(String activityTitle) {
-        this.activityTitle.setText(activityTitle);
+    public void setTime(String time) {
+        this.time.setText(time);
     }
 
-    public TextView getActivityDetails() {
-        return activityDetails;
+    public TextView getName() {
+        return name;
     }
 
-    public void setActivityDetails(String activityDetails) {
-        this.activityDetails.setText(activityDetails);
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
+    public TextView getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details.setText(details);
     }
 
     public View getContainer() {
