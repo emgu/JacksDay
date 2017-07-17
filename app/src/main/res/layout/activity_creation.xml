@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:id="@+id/add_activity"
+    tools:context="com.example.guzik.jacksday.ui.ActivityCreation">
+
+    <TextView
+        android:id="@+id/add_activity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Add Activity"
+        android:textSize="32sp"
+        android:fontFamily="sans-serif"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_activity_label"
+        android:layout_marginTop="16dp"
+        android:text="TODO: choose type/name"
+        android:fontFamily="sans-serif"
+        android:textStyle="italic"
+        />
+
+    <EditText
+        android:id="@+id/details"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="16dp"
+        android:inputType="text"
+        />
+
+</RelativeLayout>
