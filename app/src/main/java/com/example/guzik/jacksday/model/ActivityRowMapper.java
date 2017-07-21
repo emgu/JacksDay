@@ -11,7 +11,7 @@ public class ActivityRowMapper implements RowMapper{
         Activity activity = new Activity();
         activity.setDate(result.getString("date"));
         activity.setTime(result.getString("time"));
-        activity.setName(result.getString("name"));
+        activity.setName(result.getString("type"));
         activity.setDetails(result.getString("details"));
         return activity;
     }

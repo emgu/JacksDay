@@ -4,9 +4,7 @@ CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` varchar(45) NOT NULL,
   `time` varchar(45) NOT NULL,
-  `timestamp` timestamp NOT NULL,
-  `datetime` datetime NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `type` varchar(45) NOT NULL,
   `details` varchar(45) NOT NULL,
   `icon` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
@@ -24,4 +22,5 @@ INSERT INTO activities (`action_time`, `action_title`, `action_detail`) VALUES (
 INSERT INTO activities (`action_time`, `action_title`, `action_detail`) VALUES ('22:33', 'jedzenie', '50ml mlenia');
 
 
-
+  `timestamp` timestamp NOT NULL,
+  `datetime` datetime NOT NULL,

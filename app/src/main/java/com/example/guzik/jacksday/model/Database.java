@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class Database {
 
     private static final String URL = "jdbc:mysql://mn19.webd.pl/krguznic_JacksDay";
     private static final String USERNAME = "krguznic_JacksDa";
@@ -18,16 +18,16 @@ public class Data {
 
     private JdbcTemplate jdbcTemplate;
 
-    public Data(){
-        Log.w("tagtag", "--->>> Data class constructor");
-        SimpleDriverDataSource dataSource = createDatasource();
+    public Database(){
+        Log.w("tagtag", "--->>> Database class constructor");
+        SimpleDriverDataSource dataSource = createDataSource();
         if(null != dataSource) {
             jdbcTemplate = new JdbcTemplate(dataSource);
             Log.w("tagtag", "--->>> dataSource");
         }
     }
 
-    private SimpleDriverDataSource createDatasource() {
+    private SimpleDriverDataSource createDataSource() {
         try {
             return new SimpleDriverDataSource(new com.mysql.jdbc.Driver(), URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
@@ -48,9 +48,10 @@ public class Data {
     }
 
     public void save(Activity activity){
+        Log.w("tagtag", "--->>> save new value... " + activity);
         if(setThreadPolicy()) {
             String sqlInsert = "INSERT INTO activity "
-                    + "(`date`, `time`, `name`, `details`, `icon`)"
+                    + "(`date`, `time`, `type`, `details`, `icon`)"
                     + " VALUES (?, ?, ?, ?, ?)";
 
             jdbcTemplate.update(sqlInsert,
@@ -68,4 +69,5 @@ public class Data {
         }
         return false;
     }
+
 }

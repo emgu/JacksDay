@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.guzik.jacksday.R;
 import com.example.guzik.jacksday.model.Activity;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +21,11 @@ public class Adapter extends RecyclerView.Adapter<ActivityViewHolder> {
     private List<Activity> activities;
     private LayoutInflater layoutInflater;
 
+    public Adapter(Context context){
+        this.activities = Collections.emptyList();
+        this.layoutInflater = LayoutInflater.from(context);
+    }
+
     public Adapter(List<Activity> activities, Context context){
         this.activities = activities;
         this.layoutInflater = LayoutInflater.from(context);
@@ -28,6 +34,10 @@ public class Adapter extends RecyclerView.Adapter<ActivityViewHolder> {
     @Override
     public ActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.activity, parent, false);
+        view.setLayoutParams(new RecyclerView.LayoutParams(
+                RecyclerView.LayoutParams.MATCH_PARENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT
+        ));
         return new ActivityViewHolder(view);
     }
 
@@ -43,5 +53,9 @@ public class Adapter extends RecyclerView.Adapter<ActivityViewHolder> {
     @Override
     public int getItemCount() {
         return activities.size();
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 }
