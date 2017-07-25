@@ -51,12 +51,11 @@ public class Database {
         Log.w("tagtag", "--->>> save new value... " + activity);
         if(setThreadPolicy()) {
             String sqlInsert = "INSERT INTO activity "
-                    + "(`date`, `time`, `type`, `details`, `icon`)"
-                    + " VALUES (?, ?, ?, ?, ?)";
+                    + "(`time`, `type`, `details`, `icon`)"
+                    + " VALUES (?, ?, ?, ?)";
 
             jdbcTemplate.update(sqlInsert,
-                    activity.getDate(),
-                    activity.getTime(),
+                    activity.getTimeInMilisec(),
                     activity.getName(),
                     activity.getDetails(),
                     activity.getIcon());

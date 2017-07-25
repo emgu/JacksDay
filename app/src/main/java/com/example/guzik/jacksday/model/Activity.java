@@ -2,9 +2,9 @@ package com.example.guzik.jacksday.model;
 
 import android.util.Log;
 
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by guzik on 5/21/17.
@@ -12,8 +12,7 @@ import java.util.Date;
 
 public class Activity {
 
-    private String date;
-    private String time;
+    private Date dateAndTime;
     private String name;
     private String details;
     //TODO icon?
@@ -24,27 +23,30 @@ public class Activity {
     public Activity(){};
 
     public Activity(Date dateAndTime, String name, String details){
-        this.date = dateFormat.format(dateAndTime);
-        this.time = timeFormat.format(dateAndTime);
+        this.dateAndTime = dateAndTime;
         this.name = name;
         this.details = details;
         Log.w("tagtag", "--->>> Activity constructor " + this);
     }
 
-    public String getDate() {
-        return date;
+    public Date getDateAndTime() {
+        return dateAndTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateAndTime(long time) {
+        this.dateAndTime = new Date(time);
+    }
+
+    public String getDate() {
+        return dateFormat.format(dateAndTime);
     }
 
     public String getTime() {
-        return time;
+        return timeFormat.format(dateAndTime);
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public long getTimeInMilisec() {
+        return dateAndTime.getTime();
     }
 
     public String getName() {
@@ -66,4 +68,5 @@ public class Activity {
     public Object getIcon() {
         return "icon";
     }
+
 }

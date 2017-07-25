@@ -2,8 +2,7 @@ CREATE DATABASE JacksDay_db;
 
 CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` varchar(45) NOT NULL,
-  `time` varchar(45) NOT NULL,
+  `time` bigint(20) NOT NULL,
   `type` varchar(45) NOT NULL,
   `details` varchar(45) NOT NULL,
   `icon` varchar(45) NOT NULL,
