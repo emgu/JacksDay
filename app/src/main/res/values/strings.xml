@@ -2,7 +2,9 @@
     <string name="app_name">JacksDay</string>
     <string name="add_button_label">Add</string>
     <string name="cancel_button_label">Cancel</string>
-    <string name="kupa">Kupa</string>
-    <string name="papu">Papu</string>
+    <string name="poo">Poo</string>
+    <string name="food">Food</string>
     <string name="refresh_button_label">Refresh</string>
+    <string name="set_time">Set time</string>
+    <string name="set_date">Set date</string>
 </resources>

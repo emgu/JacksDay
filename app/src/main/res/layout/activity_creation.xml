@@ -31,12 +31,12 @@
         <RadioButton android:id="@+id/radio_kupa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/kupa"
+            android:text="@string/poo"
             android:onClick="getRadioButtonState"/>
         <RadioButton android:id="@+id/radio_papu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/papu"
+            android:text="@string/food"
             android:onClick="getRadioButtonState"/>
     </RadioGroup>
 
@@ -50,11 +50,22 @@
         />
 
     <Button
+        android:id="@+id/set_time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/details_input"
+        android:layout_marginTop="16dp"
+        android:text="@string/set_time"
+        android:onClick="showTimePickerDialog"
+        />
+
+    <Button
         android:id="@+id/confirm_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/details_input"
+        android:layout_below="@id/set_time_button"
         android:layout_marginTop="16dp"
         android:text="@string/add_button_label"
         />

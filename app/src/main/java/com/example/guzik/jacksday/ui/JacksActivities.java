@@ -73,6 +73,7 @@ public class JacksActivities extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 String activityType = intent.getStringExtra("ACTIVITY_TYPE");
                 String activityDetails = intent.getStringExtra("ACTIVITY_DETAILS");
+                Long activityTime = intent.getLongExtra("ACTIVITY_TIME", new Date().getTime());
                 database.save(new Activity(new Date(), activityType, activityDetails));
                 finish();
                 startActivity(getIntent());
