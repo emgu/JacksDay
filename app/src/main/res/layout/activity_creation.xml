@@ -50,11 +50,31 @@
         />
 
     <Button
+        android:id="@+id/set_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/details_input"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/centerPoint"
+        android:layout_marginTop="16dp"
+        android:text="@string/set_date"
+        android:onClick="showDatePickerDialog"
+        />
+    <TextView
+        android:id="@+id/centerPoint"
+        android:text=""
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/details_input"
+        android:layout_centerHorizontal="true"
+        />
+    <Button
         android:id="@+id/set_time_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/details_input"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/centerPoint"
         android:layout_marginTop="16dp"
         android:text="@string/set_time"
         android:onClick="showTimePickerDialog"

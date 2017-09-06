@@ -10,18 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import java.util.Calendar;
 import com.example.guzik.jacksday.R;
 
-/**
- * Created by guzik on 7/17/17.
- */
 
 public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
 
     private String activityType;
     private EditText activityDetailsInput;
-    private long time = Long.MAX_VALUE;
-  //  activityTypeInput
+    private long time = 0L;
+    private long date = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +32,10 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
         Button confirmButton = (Button) findViewById(R.id.confirm_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.w("tagtag", "--->>> JacksActivities confirm... ");
-
-         //       Date actualDate = new Date();
-         //       Log.w("tagtag", "--->>> actualDate " + actualDate);
-
-                Log.w("tagtag", "--->>> activityType " + activityType);
-
-                String activityDetails = activityDetailsInput.getText().toString();
-                Log.w("tagtag", "--->>> activityDetails " + activityDetails);
-
-                // TODO: create activity with: onRadioButtonClicked, details from text input, time
-//                Database database = getIntent().getParcelableExtra("DATA");
-//                database.save(new Activity(actualDate, activityType, activityDetails));
-
                 Intent intent = new Intent();
                 intent.putExtra("ACTIVITY_TYPE", activityType);
-                intent.putExtra("ACTIVITY_DETAILS", activityDetails);
-                intent.putExtra("ACTIVITY_TIME", time);
+                intent.putExtra("ACTIVITY_DETAILS", activityDetailsInput.getText().toString());
+                intent.putExtra("ACTIVITY_TIME", calculateTime());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -59,11 +43,30 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
 
         Button cancelButton = (Button) findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w("tagtag", "--->>> JacksActivities cancel... ");
-                finish();
-            }
+            public void onClick(View v) { finish(); }
         });
+    }
+
+    private long calculateTime() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        if(time == 0L && date == 0L) {
+            return c.getTimeInMillis();
+        }
+        if(time == 0L && date != 0L){
+            c.set(0, 0, 0, hour, minute);
+            return date + c.getTimeInMillis();
+        }
+        if(time != 0L && date == 0L){
+            c.set(year, month, day, 0, 0);
+            return c.getTimeInMillis() + time;
+        }
+        return time + date;
     }
 
     public void getRadioButtonState(View view) {
@@ -86,5 +89,11 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
         DialogFragment timePicker = new ActivityTimePicker();
         timePicker.show(getSupportFragmentManager(), "time_picker");
         time = ((ActivityTimePicker) timePicker).getTime();
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment datePicker = new ActivityDatePicker();
+        datePicker.show(getSupportFragmentManager(), "date_picker");
+        date = ((ActivityDatePicker) datePicker).getDate();
     }
 }

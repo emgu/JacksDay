@@ -5,26 +5,38 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class ActivityTimePicker extends DialogFragment
-        implements TimePickerDialog.OnTimeSetListener {
+public class ActivityTimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-    private long time = Long.MAX_VALUE;
+    private long time;
+    private int hour;
+    private int minute;
+
+    public ActivityTimePicker() {
+        final Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+        c.set(0, 0, 0, hour, minute);
+        time = c.getTimeInMillis();
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int hour = Integer.MAX_VALUE;
-        int minute = Integer.MAX_VALUE;
-
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        time = TimeUnit.HOURS.toMillis(hourOfDay) + TimeUnit.MINUTES.toMillis(minute);
+        Calendar timeSetByUser = Calendar.getInstance();
+        timeSetByUser.set(0, 0, 0, hourOfDay, minute);
+        time = timeSetByUser.getTimeInMillis();
+        //Log.w("tagtag", ((Long) time).toString());
+        System.out.println("--->>> time " + time);
     }
 
     public long getTime() {
