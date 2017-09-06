@@ -13,16 +13,15 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityTimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-    private long time;
     private int hour;
     private int minute;
 
-    public ActivityTimePicker() {
-        final Calendar c = Calendar.getInstance();
-        hour = c.get(Calendar.HOUR_OF_DAY);
-        minute = c.get(Calendar.MINUTE);
-        c.set(0, 0, 0, hour, minute);
-        time = c.getTimeInMillis();
+    private Calendar activityTimeAndDate;
+
+    public void setCurrentTime(Calendar activityTimeAndDate) {
+        this.activityTimeAndDate = activityTimeAndDate;
+        this.hour = activityTimeAndDate.get(Calendar.HOUR_OF_DAY);
+        this.minute = activityTimeAndDate.get(Calendar.MINUTE);
     }
 
     @Override
@@ -32,14 +31,11 @@ public class ActivityTimePicker extends DialogFragment implements TimePickerDial
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Calendar timeSetByUser = Calendar.getInstance();
-        timeSetByUser.set(0, 0, 0, hourOfDay, minute);
-        time = timeSetByUser.getTimeInMillis();
-        //Log.w("tagtag", ((Long) time).toString());
-        System.out.println("--->>> time " + time);
+        activityTimeAndDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        activityTimeAndDate.set(Calendar.MINUTE, minute);
     }
 
-    public long getTime() {
-        return time;
+    public Calendar getUpdatedTime() {
+        return activityTimeAndDate;
     }
 }

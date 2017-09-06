@@ -1,5 +1,6 @@
 package com.example.guzik.jacksday.ui;
 
+import android.provider.Settings;
 import android.support.v4.util.TimeUtils;
 import android.test.mock.MockContext;
 import android.text.format.DateUtils;
@@ -8,6 +9,8 @@ import android.widget.TimePicker;
 import com.mysql.jdbc.TimeUtil;
 
 import org.junit.Test;
+
+import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,16 +21,27 @@ import static org.junit.Assert.assertEquals;
  */
 public class ActivityTimePickerTest {
 
-    ActivityTimePicker activityTimePicker = new ActivityTimePicker();
-
     MockContext mockContext = new MockContext();
     TimePicker view = new TimePicker(mockContext);
 
     @Test
     public void onTimeSetTest() throws Exception {
+
+        final Calendar currentTime = Calendar.getInstance();
+        currentTime.set(2017,0,10,0,0,0);
+        final Calendar userTime = Calendar.getInstance();
+        userTime.set(2017,0,10,12,34,0);
+
         ActivityTimePicker activityTimePicker = new ActivityTimePicker();
+        activityTimePicker.setCurrentTime(currentTime);
         activityTimePicker.onTimeSet(view, 12, 34);
-        long exampleTimeInMilis = (12*DateUtils.HOUR_IN_MILLIS) + (34*DateUtils.MINUTE_IN_MILLIS);
-        assertEquals(exampleTimeInMilis, activityTimePicker.getTime());
+        Calendar updatedTime = activityTimePicker.getUpdatedTime();
+
+        assertEquals(userTime.get(Calendar.YEAR), updatedTime.get(Calendar.YEAR));
+        assertEquals(userTime.get(Calendar.MONTH), updatedTime.get(Calendar.MONTH));
+        assertEquals(userTime.get(Calendar.DAY_OF_MONTH), updatedTime.get(Calendar.DAY_OF_MONTH));
+        assertEquals(userTime.get(Calendar.HOUR_OF_DAY), updatedTime.get(Calendar.HOUR_OF_DAY));
+        assertEquals(userTime.get(Calendar.HOUR), updatedTime.get(Calendar.HOUR));
+        assertEquals(userTime.get(Calendar.MINUTE), updatedTime.get(Calendar.MINUTE));
     }
 }

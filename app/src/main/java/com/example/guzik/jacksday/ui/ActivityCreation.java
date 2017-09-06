@@ -18,16 +18,18 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
 
     private String activityType;
     private EditText activityDetailsInput;
-    private long time = 0L;
-    private long date = 0L;
+    private Calendar activityTimeAndDate;
+    private long timeZero = Long.MIN_VALUE;
+    private long time = timeZero;
+    private long date = timeZero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
 
-        //activityTypeInput = findViewById(R.id.radio_group);
         activityDetailsInput = (EditText)findViewById(R.id.details_input);
+        activityTimeAndDate = Calendar.getInstance();
 
         Button confirmButton = (Button) findViewById(R.id.confirm_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +37,7 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("ACTIVITY_TYPE", activityType);
                 intent.putExtra("ACTIVITY_DETAILS", activityDetailsInput.getText().toString());
-                intent.putExtra("ACTIVITY_TIME", calculateTime());
+                intent.putExtra("ACTIVITY_TIME", activityTimeAndDate.getTimeInMillis());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -45,28 +47,6 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) { finish(); }
         });
-    }
-
-    private long calculateTime() {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-
-        if(time == 0L && date == 0L) {
-            return c.getTimeInMillis();
-        }
-        if(time == 0L && date != 0L){
-            c.set(0, 0, 0, hour, minute);
-            return date + c.getTimeInMillis();
-        }
-        if(time != 0L && date == 0L){
-            c.set(year, month, day, 0, 0);
-            return c.getTimeInMillis() + time;
-        }
-        return time + date;
     }
 
     public void getRadioButtonState(View view) {
@@ -87,13 +67,15 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
 
     public void showTimePickerDialog(View v) {
         DialogFragment timePicker = new ActivityTimePicker();
+        ((ActivityTimePicker) timePicker).setCurrentTime(activityTimeAndDate);
         timePicker.show(getSupportFragmentManager(), "time_picker");
-        time = ((ActivityTimePicker) timePicker).getTime();
+        activityTimeAndDate = ((ActivityTimePicker) timePicker).getUpdatedTime();
     }
 
     public void showDatePickerDialog(View v) {
         DialogFragment datePicker = new ActivityDatePicker();
+        ((ActivityDatePicker) datePicker).setCurrentDate(activityTimeAndDate);
         datePicker.show(getSupportFragmentManager(), "date_picker");
-        date = ((ActivityDatePicker) datePicker).getDate();
+        activityTimeAndDate = ((ActivityDatePicker) datePicker).getUpdatedDate();
     }
 }
