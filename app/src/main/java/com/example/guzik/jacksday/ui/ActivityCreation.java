@@ -20,8 +20,6 @@ public class ActivityCreation extends FragmentActivity {//AppCompatActivity {
     private EditText activityDetailsInput;
     private Calendar activityTimeAndDate;
     private long timeZero = Long.MIN_VALUE;
-    private long time = timeZero;
-    private long date = timeZero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
